@@ -1,42 +1,52 @@
-import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export class CreateAnimalDto {
+export class UpdateAnimalDto {
   @ApiModelProperty({ description: 'Name', example: 'Felix'})
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name?: string;
 
   @ApiModelProperty({ description: 'Photo URL', example: 'myphoto'})
+  @IsOptional()
   @IsString()
+  @IsNotEmpty()
   photo?: string;
 
   @ApiModelProperty({ description: 'Species', example: 'Feline'})
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  species: string;
+  @IsNotEmpty()
+  species?: string;
 
   @ApiModelProperty({ description: 'Breed', example: 'Cat'})
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  breed: string;
+  @IsNotEmpty()
+  breed?: string;
 
   @ApiModelProperty({ description: 'diet', example: 'meat'})
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  diet: string;
+  @IsNotEmpty()
+  diet?: string;
 
   @ApiModelProperty({ description: 'Health state', example: 'Healthy'})
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  health: string;
+  @IsNotEmpty()
+  health?: string;
 
   @ApiModelProperty({ description: 'Description', example: 'Calm & Cute'})
+  @IsOptional()
   @IsString()
+  @IsNotEmpty()
   description?: string;
 
   @ApiModelProperty({ description: 'Arrived at ..', example: '2019/12/2'})
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
-  enterDate: number;
+  @IsNotEmpty()
+  enterDate?: number;
 }

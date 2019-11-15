@@ -3,5 +3,6 @@ export interface SwaggerConfig {
   description: string;
   version: string;
   tag: string;
+  tagAnimals: string;
   path: string;
 }

@@ -5,6 +5,7 @@ import { Animal } from '../interfaces/animal.interface';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CreateAnimalDto } from '../dto/create-animal.dto';
+import { UpdateAnimalDto } from '../dto/update-animal.dto';
 
 @Injectable()
 export class AnimalsDao {
@@ -29,5 +30,19 @@ export class AnimalsDao {
       .pipe(
         map((doc: MongooseDocument) => doc.toJSON()),
       )
+  }
+
+  update(id: string, animal: UpdateAnimalDto): Observable<Animal> {
+    return from(this._animalModel.findByIdAndUpdate(id, animal, { new: true }))
+      .pipe(
+        map((doc: MongooseDocument) => (!!doc) ? doc.toJSON() : undefined),
+      );
+  }
+
+  delete(id: string): Observable<any> {
+    return from(this._animalModel.findByIdAndDelete(id))
+      .pipe(
+        map((doc: MongooseDocument) => (!!doc) ? doc.toJSON() : undefined),
+      );
   }
 }

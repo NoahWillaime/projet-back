@@ -1,3 +1,5 @@
+import { Document } from 'mongoose';
+
 export interface Animal extends Document {
   id: string;
   name: string;
