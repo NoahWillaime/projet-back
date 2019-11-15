@@ -1,10 +1,13 @@
 import { Logger, Module } from '@nestjs/common';
 import { AnimalsService } from './animals.service';
 import { AnimalsController } from './animals.controller';
+import { MongooseModule } from '@nestjs/mongoose';
+import { AnimalSchema } from './schemas/animal.schema';
+import { AnimalsDao } from './dao/animals.dao';
 
 @Module({
-  providers: [AnimalsService, Logger],
+  imports: [MongooseModule.forFeature([{ name: 'Animal', schema: AnimalSchema}])],
+  providers: [AnimalsService, Logger, AnimalsDao],
   controllers: [AnimalsController],
-  exports: [AnimalsService],
 })
 export class AnimalsModule {}

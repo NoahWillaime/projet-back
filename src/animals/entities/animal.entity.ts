@@ -2,7 +2,7 @@ import { Exclude, Expose, Type } from 'class-transformer';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 @Exclude()
-export class PersonEntity {
+export class AnimalEntity {
   @ApiModelProperty({ description: 'Unique identifier in the database', example: '123'})
   @Expose()
   @Type(() => String)
@@ -35,8 +35,12 @@ export class PersonEntity {
   @Expose()
   @Type(() => String)
   description: string;
-  @ApiModelProperty({ description: 'Arrived at ..', example: '12/2/2019'})
+  @ApiModelProperty({ description: 'Arrived at ..', example: '2019/12/2'})
   @Expose()
-  @Type(() => String)
-  enterDate: string;
+  @Type(() => Number)
+  enterDate: number;
+
+  constructor(partial: Partial<AnimalEntity>) {
+    Object.assign(this, partial);
+  }
 }

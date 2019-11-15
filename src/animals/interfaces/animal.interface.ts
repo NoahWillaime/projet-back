@@ -1,11 +1,11 @@
-export interface Animal {
+export interface Animal extends Document {
   id: string;
   name: string;
-  photo: string;
+  photo?: string;
   species: string;
   breed: string;
   diet: string;
   health: string;
-  description: string;
-  enterDate: string;
+  description?: string;
+  enterDate: number;
 }
