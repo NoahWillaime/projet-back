@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User, UsersService } from '../users/users.service';
 import { Observable, of } from 'rxjs';
-import { defaultIfEmpty, filter, map } from 'rxjs/operators';
+import { defaultIfEmpty, filter, map, tap } from 'rxjs/operators';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()

@@ -18,7 +18,6 @@ export class AppController {
 
   @ApiOkResponse({ description: 'Ok' })
   @ApiUnauthorizedResponse({ description: 'Identifiants non valides' })
-  @UseGuards(AuthGuard('local'))
   @Post('auth/login')
   login(@Body() connectUser: ConnectUserDto): Observable<any> {
     return this.auth.validate(connectUser.username, connectUser.password);

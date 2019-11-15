@@ -31,7 +31,7 @@ export class UsersService {
   findOne(username: string): Observable<User | void> {
     return of(this.users.find(user => user.username === username))
       .pipe(
-        flatMap(_ => (!!_) ? of(_) : undefined),
+        map(_ => (!!_) ? _ : undefined),
       );
   }
 }
