@@ -5,11 +5,19 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { SwaggerConfig } from './interfaces/swagger-config.interface';
 import { AppConfig } from './interfaces/app-config.interface';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
 
   const app = await NestFactory.create<NestFastifyApplication>(AppModule,
     new FastifyAdapter({ logger: true }),
+  );
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
   );
 
   const options = new DocumentBuilder()
