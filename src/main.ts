@@ -27,6 +27,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
     .setDescription(swaggerConfig.description)
     .setVersion(swaggerConfig.version)
     .addTag(swaggerConfig.tagAnimals)
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
