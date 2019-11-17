@@ -2,7 +2,7 @@ import { ConflictException, Injectable, NotFoundException, UnprocessableEntityEx
 import { Animal } from './interfaces/animal.interface';
 import { ANIMALS } from '../data/animals';
 import { from, Observable, of, throwError } from 'rxjs';
-import { catchError, find, flatMap, map } from 'rxjs/operators';
+import { catchError, find, flatMap, map, tap } from 'rxjs/operators';
 import { AnimalEntity } from './entities/animal.entity';
 import { AnimalsDao } from './dao/animals.dao';
 import { CreateAnimalDto } from './dto/create-animal.dto';
@@ -14,6 +14,31 @@ export class AnimalsService {
 
   constructor(private readonly _animalsDao: AnimalsDao) {
     this._animals = [].concat(ANIMALS);
+  }
+
+  findAllSpecies(): Observable<string[] | void> {
+    return this.findAll()
+      .pipe(
+        map((animals: AnimalEntity[]) => [... new Set(animals.map(animal => animal.species))]),
+        flatMap(_ =>
+          (!!_ && _.length > 0) ?
+            of(_) :
+            throwError(new NotFoundException('No Speecies here'))
+        ),
+      );
+  }
+
+  findAllBySpecies(speecies: string): Observable<AnimalEntity[] | void> {
+    return this.findAll()
+      .pipe(
+        map((animals: AnimalEntity[]) =>
+          animals.filter((animal: AnimalEntity) => animal.species.toLowerCase() === speecies.toLowerCase())),
+        flatMap(_ =>
+          (!!_ && _.length > 0) ?
+            of(_) :
+            throwError(new NotFoundException('No animal with specified species here'))
+        ),
+      );
   }
 
   findAll(): Observable<AnimalEntity[] | void> {

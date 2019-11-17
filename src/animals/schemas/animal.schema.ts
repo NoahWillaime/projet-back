@@ -20,6 +20,11 @@ export const AnimalSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  gender: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   diet: {
     type: String,
     required: true,
