@@ -14,9 +14,15 @@ export class UpdateBenevoleDto {
   @IsNotEmpty()
   password: string;
 
+  @ApiModelProperty({ description: 'Refuge of the benevole' })
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  refugeName: string;
+
   @ApiModelProperty({ description: 'Unique identifier in the database', example: '123'})
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  idRefuge: string;
+  refugeId: string;
 }

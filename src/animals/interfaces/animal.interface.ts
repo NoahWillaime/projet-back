@@ -10,4 +10,5 @@ export interface Animal extends Document {
   health: string;
   description?: string;
   enterDate: number;
+  refugeId: string;
 }

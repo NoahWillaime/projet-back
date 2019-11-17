@@ -4,6 +4,7 @@ import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Observable, of, throwError } from 'rxjs';
 import { filter, flatMap, tap } from 'rxjs/operators';
+import { BenevoleEntity } from '../benevoles/entities/benevole.entity';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -11,7 +12,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super();
   }
 
-  validate(username: string, password: string): Observable<any> {
+  validate(username: string, password: string): Observable<BenevoleEntity> {
     return this.authService.validUser(username, password)
       .pipe(
         flatMap(_ => (!_) ?

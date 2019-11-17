@@ -19,7 +19,7 @@ export class BenevolesDao {
   }
 
   findOne(username: string): Observable<Benevole | void> {
-    return from(this._benevoleModel.findById(username))
+    return from(this._benevoleModel.findOne({"username": username}))
       .pipe(
         map((doc: MongooseDocument) => (!!doc) ? doc.toJSON() : undefined),
       );

@@ -35,6 +35,10 @@ export const AnimalSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  refugeId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
   description: {
     type: String,
     trim: true,

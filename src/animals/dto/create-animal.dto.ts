@@ -1,5 +1,6 @@
 import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
+import { Expose, Type } from 'class-transformer';
 
 export class CreateAnimalDto {
   @ApiModelProperty({ description: 'Name', example: 'Felix'})
@@ -44,4 +45,9 @@ export class CreateAnimalDto {
   @IsNotEmpty()
   @IsNumber()
   enterDate: number;
+
+  @ApiModelProperty({ description: 'Unique identifier in the database', example: '123'})
+  @IsNotEmpty()
+  @IsString()
+  refugeId: string;
 }

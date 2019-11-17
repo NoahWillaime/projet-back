@@ -55,4 +55,9 @@ export class UpdateAnimalDto {
   @IsNumber()
   @IsNotEmpty()
   enterDate?: number;
+
+  @ApiModelProperty({ description: 'Unique identifier in the database', example: '123'})
+  @IsOptional()
+  @IsString()
+  refugeId: string;
 }

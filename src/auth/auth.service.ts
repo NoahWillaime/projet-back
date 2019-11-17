@@ -3,23 +3,31 @@ import { User, UsersService } from '../users/users.service';
 import { Observable, of } from 'rxjs';
 import { defaultIfEmpty, filter, map, tap } from 'rxjs/operators';
 import { JwtService } from '@nestjs/jwt';
+import { BenevolesService } from '../benevoles/benevoles.service';
+import { Benevole } from '../benevoles/interfaces/benevole.interface';
+import { BenevoleEntity } from '../benevoles/entities/benevole.entity';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UsersService, private readonly jwtService: JwtService) {}
+  constructor(private readonly _benevolesService: BenevolesService, private readonly jwtService: JwtService) {}
 
-  validUser(username: string, pass: string): Observable<any> {
-    return this.userService.findOne(username)
+  validUser(username: string, pass: string): Observable<BenevoleEntity | void> {
+    return this._benevolesService.findOne(username)
       .pipe(
         filter(_ => !!_),
-        map((user: User) =>
-          (user.password === pass) ? (({password, ...data}) => ({...data}))(user) : undefined),
+        map((user: BenevoleEntity) =>
+          (user.password === pass) ? user : undefined),
         defaultIfEmpty(undefined),
       );
   }
 
-  login(user: any): Observable<any> {
-    const payload = { username: user.username, sub: user.userId };
-    return of({access_token: this.jwtService.sign(payload) });
+  login(user: BenevoleEntity): Observable<any> {
+    const payload = { username: user.username, sub: user.id};
+    return of({
+      userId: user.id,
+      username: user.username,
+      refugeId: user.refugeId,
+      access_token: this.jwtService.sign(payload)
+    });
   }
 }

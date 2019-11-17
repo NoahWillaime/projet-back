@@ -4,7 +4,9 @@ export interface Refuge extends Document{
   id: string;
   name: string;
   address: Address;
+  animalsIds: string[];
   phone: string;
+  userId: string;
   email: string;
 }
 

@@ -44,7 +44,10 @@ export class AnimalEntity {
   @Expose()
   @Type(() => Number)
   enterDate: number;
-
+  @ApiModelProperty({ description: 'Unique identifier in the database', example: '123'})
+  @Expose()
+  @Type(() => String)
+  refugeId: string;
   constructor(partial: Partial<AnimalEntity>) {
     Object.assign(this, partial);
   }

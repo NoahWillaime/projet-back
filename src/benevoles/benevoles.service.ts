@@ -23,8 +23,8 @@ export class BenevolesService {
       );
   }
 
-  findOne(id: string): Observable<BenevoleEntity> {
-    return this._benevolesDao.findOne(id)
+  findOne(username: string): Observable<BenevoleEntity> {
+    return this._benevolesDao.findOne(username)
       .pipe(
         catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
         flatMap(_ =>

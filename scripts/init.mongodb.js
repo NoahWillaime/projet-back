@@ -23,6 +23,19 @@ db.getCollection('refuges').insertMany([
   }
 ]);
 
+db.getCollection('benevoles').insertMany([
+  {
+    "username": "niceuser",
+    "password": "nicepassword",
+    "refugeName": "Refuge de Nancy"
+  },
+  {
+    "username": "longwyuser",
+    "password": "longwypassword",
+    "refugeName": "Refuge de Longwy"
+  },
+]);
+
 db.getCollection('animals').insertMany([
   {
     "name": "Myke",
@@ -73,5 +86,18 @@ data.forEach(function(element) {
     db.getCollection('animals').updateOne({_id: element._id}, { $set: { refugeId: refuges[0]._id } });
     var Ids = refuges[0].animalsIds.concat(element._id);
     db.getCollection('refuges').updateOne({_id: refuges[0]._id}, { $set: { animalsIds: Ids } });
+  }
+});
+
+var user = db.getCollection('benevoles').find({}).map(function(element) {
+  return { _id: element._id, refugeName: element.refugeName };
+});
+user.forEach(function(element) {
+  var refuges = db.getCollection('refuges').find({"name": element.refugeName}).map(function(elt) {
+    return { _id: elt._id, name: elt.name };
+  });
+  if (!!refuges) {
+    db.getCollection('benevoles').updateOne({_id: element._id}, { $set: { refugeId: refuges[0]._id } });
+    db.getCollection('refuges').updateOne({_id: refuges[0]._id}, { $set: { userId: element._id } });
   }
 });
