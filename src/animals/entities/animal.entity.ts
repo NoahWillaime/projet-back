@@ -1,5 +1,6 @@
 import { Exclude, Expose, Type } from 'class-transformer';
 import { ApiModelProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 @Exclude()
 export class AnimalEntity {
@@ -19,6 +20,10 @@ export class AnimalEntity {
   @Expose()
   @Type(() => String)
   breed: string;
+  @ApiModelProperty({ description: 'Gender', example: 'Male'})
+  @Expose()
+  @Type(() => String)
+  gender: string
   @ApiModelProperty({ description: 'Photo URL', example: 'myphoto'})
   @Expose()
   @Type(() => String)

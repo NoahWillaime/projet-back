@@ -26,6 +26,12 @@ export class UpdateAnimalDto {
   @IsNotEmpty()
   breed?: string;
 
+  @ApiModelProperty({ description: 'Gender', example: 'Male'})
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  gender: string
+
   @ApiModelProperty({ description: 'diet', example: 'meat'})
   @IsOptional()
   @IsString()

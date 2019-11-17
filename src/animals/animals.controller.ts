@@ -15,6 +15,7 @@ import { AnimalEntity } from './entities/animal.entity';
 import { CreateAnimalDto } from './dto/create-animal.dto';
 import { UpdateAnimalDto } from './dto/update-animal.dto';
 import { AnimalsInterceptor } from './interceptors/animals.interceptor';
+import { HandlerParemsSpecies } from './validators/HandlerParemsSpecies';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @UseInterceptors(AnimalsInterceptor)
@@ -22,6 +23,21 @@ import { AnimalsInterceptor } from './interceptors/animals.interceptor';
 export class AnimalsController {
 
   constructor(private readonly _animalService: AnimalsService) {}
+
+  @ApiOkResponse({ description: 'Return an array of breeds name', type: String})
+  @ApiNoContentResponse({ description: 'No breeds in database' })
+  @Get('/species')
+  findAllSpecies(): Observable<string[] | void> {
+    return this._animalService.findAllSpecies();
+  }
+
+  @ApiOkResponse({ description: 'Return an array oof animal filtered by specified species', type: AnimalEntity})
+  @ApiNoContentResponse({ description: 'No animal with specified species' })
+  @ApiImplicitParam({name: 'species', description: 'Species of the animals', type: String})
+  @Get('/species/:species')
+  findAllBySpecies(@Param() params: HandlerParemsSpecies): Observable<AnimalEntity[] | void> {
+    return this._animalService.findAllBySpecies(params.species);
+  }
 
   @ApiOkResponse({ description: 'Returns an array of animal', type: AnimalEntity})
   @ApiNoContentResponse( { description: 'No animal in database '} )
