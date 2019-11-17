@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { AnimalsModule } from './animals/animals.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { BenevolesModule } from './benevoles/benevoles.module';
 import { RefugeController } from './refuge/refuge.controller';
 import { RefugeModule } from './refuge/refuge.module';
 
@@ -15,6 +16,7 @@ import { RefugeModule } from './refuge/refuge.module';
     MongooseModule.forRoot('mongodb://localhost/projetdb', {    useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false}),
+    BenevolesModule,
     RefugeModule,
   ],
   controllers: [AppController],
