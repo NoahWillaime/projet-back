@@ -12,6 +12,7 @@ import { HandlerParams } from '../animals/validators/HandlerParams';
 import { RefugeEntity } from './entities/refuge.entity';
 import { RefugeService } from './refuge.service';
 import { RefugeInterceptor } from './interceptors/refuges.interceptor';
+import { HandlerParamsPostalCode } from './validators/HandlerParamsPostalCode';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @UseInterceptors(RefugeInterceptor)
@@ -24,6 +25,14 @@ export class RefugeController {
   @Get()
   findAll(): Observable<RefugeEntity[] | void> {
     return this._refugeService.findAll();
+  }
+
+  @ApiOkResponse({ description: 'Return an array of refuge filtered by specified postalcode', type: RefugeEntity})
+  @ApiNoContentResponse({ description: 'No refuge with specified postalCode' })
+  @ApiImplicitParam({name: 'postalCode', description: 'PostalCode of the refuges', type: String})
+  @Get('/postalCode/:postalCode')
+  findAllByPostalCode(@Param() params: HandlerParamsPostalCode): Observable<RefugeEntity[] | void> {
+    return this._refugeService.findAllByPostalCode(params.postalCode);
   }
 
   @ApiOkResponse({ description: 'Return the refuge corresponding with the given id' })

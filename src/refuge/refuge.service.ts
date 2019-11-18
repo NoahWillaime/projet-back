@@ -3,7 +3,6 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, flatMap, map } from 'rxjs/operators';
 import { RefugesDao } from './dao/refuges.dao';
 import { RefugeEntity } from './entities/refuge.entity';
-import { AnimalEntity } from '../animals/entities/animal.entity';
 
 @Injectable()
 export class RefugeService {
