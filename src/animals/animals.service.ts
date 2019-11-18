@@ -7,6 +7,7 @@ import { AnimalEntity } from './entities/animal.entity';
 import { AnimalsDao } from './dao/animals.dao';
 import { CreateAnimalDto } from './dto/create-animal.dto';
 import { UpdateAnimalDto } from './dto/update-animal.dto';
+import { RefugesDao } from '../refuge/dao/refuges.dao';
 
 @Injectable()
 export class AnimalsService {
