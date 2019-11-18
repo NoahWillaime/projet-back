@@ -20,7 +20,7 @@ export class AnimalsService {
   findAllSpecies(): Observable<string[] | void> {
     return this.findAll()
       .pipe(
-        map((animals: AnimalEntity[]) => [... new Set(animals.map(animal => animal.species))]),
+        map((animals: AnimalEntity[]) => [... new Set(animals.map(animal => animal.species.toLowerCase()))]),
         flatMap(_ =>
           (!!_ && _.length > 0) ?
             of(_) :
