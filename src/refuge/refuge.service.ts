@@ -17,6 +17,19 @@ export class RefugeService {
       );
   }
 
+  findAllByPostalCode(postalcode: string): Observable<RefugeEntity[] | void> {
+    return this.findAll()
+      .pipe(
+        map((refuges: RefugeEntity[]) =>
+          refuges.filter((refuges: RefugeEntity) => refuges.address.postalCode.toLowerCase() === postalcode.toLowerCase())),
+        flatMap(_ =>
+          (!!_ && _.length > 0) ?
+            of(_) :
+            throwError(new NotFoundException('No animal with specified species here'))
+        ),
+      );
+  }
+
   findOne(id: string): Observable<RefugeEntity> {
     return this._refugeDao.findOne(id)
       .pipe(
