@@ -16,16 +16,6 @@ export const RefugeSchema = new mongoose.Schema({
     required: true,
     match: /^(\+\d{11})$/,
   },
-  animalsIds: [
-    {
-      type: String,
-      required: true
-    }
-  ],
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-  },
   address: {
     street: {
       type: String,

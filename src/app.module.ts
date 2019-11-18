@@ -10,7 +10,7 @@ import { RefugeModule } from './refuge/refuge.module';
 @Module({
   imports: [AuthModule,
     AnimalsModule,
-    MongooseModule.forRoot('mongodb://localhost/projetdb', {    useNewUrlParser: true,
+    MongooseModule.forRoot('mongodb://localhost:27017/projetdb', {    useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false}),
     BenevolesModule,
