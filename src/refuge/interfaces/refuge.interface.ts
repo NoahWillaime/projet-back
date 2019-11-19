@@ -6,6 +6,9 @@ export interface Refuge extends Document{
   address: Address;
   phone: string;
   email: string;
+  userId: string;
+  userFirstname: string;
+  userLastname: string;
 }
 
 export interface Address {

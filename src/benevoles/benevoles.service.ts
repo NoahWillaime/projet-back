@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
+import { ConflictException, Injectable, Logger, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import { Benevole} from './interfaces/benevole.interface';
 import { BENEVOLES} from '../data/benevoles';
 import { from, Observable, of, throwError } from 'rxjs';
@@ -12,7 +12,7 @@ import { UpdateBenevoleDto } from './dto/update-benevole.dto';
 export class BenevolesService {
   private _benevoles: Benevole[];
 
-  constructor(private readonly _benevolesDao: BenevolesDao) {
+  constructor(private readonly _benevolesDao: BenevolesDao, private _logger: Logger) {
     this._benevoles = [].concat(BENEVOLES);
   }
 
@@ -23,8 +23,20 @@ export class BenevolesService {
       );
   }
 
-  findOne(username: string): Observable<BenevoleEntity> {
-    return this._benevolesDao.findOne(username)
+  findOne(id: string): Observable<BenevoleEntity> {
+    return this._benevolesDao.findOne(id)
+      .pipe(
+        catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
+        flatMap(_ =>
+          (!!_) ?
+            of(new BenevoleEntity(_)) :
+            throwError(new NotFoundException('not here')),
+        ),
+      );
+  }
+
+  findOneUsername(username: string): Observable<BenevoleEntity> {
+    return this._benevolesDao.findOneUsername(username)
       .pipe(
         catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
         flatMap(_ =>

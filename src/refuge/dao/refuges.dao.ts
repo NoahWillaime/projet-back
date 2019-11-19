@@ -28,6 +28,13 @@ export class RefugesDao {
       );
   }
 
+  findOneByUser(id: string): Observable<Refuge | void> {
+    return from(this._refugeModel.findOne({"userId": id}))
+      .pipe(
+        map((doc: MongooseDocument) => (!!doc) ? doc.toJSON() : undefined),
+      );
+  }
+
   create(refuge: CreateRefugeDto): Observable<Benevole> {
     return from(this._refugeModel.create(refuge))
       .pipe(

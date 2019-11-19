@@ -9,6 +9,7 @@ import { BenevolesService } from '../benevoles/benevoles.service';
 import { BenevolesDao } from '../benevoles/dao/benevoles.dao';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BenevoleSchema } from '../benevoles/schemas/benevole.schema';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { BenevoleSchema } from '../benevoles/schemas/benevole.schema';
     }),
     MongooseModule.forFeature([{ name: 'Benevole', schema: BenevoleSchema}])
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, BenevolesService, BenevolesDao],
+  providers: [AuthService, LocalStrategy, JwtStrategy, BenevolesService, BenevolesDao, Logger],
   exports: [LocalStrategy, AuthService],
+  controllers: [AuthController],
 })
 export class AuthModule {}

@@ -34,4 +34,22 @@ export class UpdateRefugeDto {
   @IsString()
   @IsNotEmpty()
   email: string;
+
+  @ApiModelProperty({ description: 'Unique user identifier in the database', example: '123'})
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  userId: string;
+
+  @ApiModelProperty({ description: 'User firstname', example: 'Jean'})
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  userFirstname: string;
+
+  @ApiModelProperty({ description: 'User lastname', example: 'Marc'})
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  userLastname: string;
 }
