@@ -25,15 +25,15 @@ export class BenevolesDao {
       );
   }
 
-  create(animal: CreateBenevoleDto): Observable<Benevole> {
-    return from(this._benevoleModel.create(animal))
+  create(benevole: CreateBenevoleDto): Observable<Benevole> {
+    return from(this._benevoleModel.create(benevole))
       .pipe(
         map((doc: MongooseDocument) => doc.toJSON()),
       );
   }
 
-  update(username: string, animal: UpdateBenevoleDto): Observable<Benevole> {
-    return from(this._benevoleModel.findByIdAndUpdate(username, animal, { new: true }))
+  update(username: string, benevole: UpdateBenevoleDto): Observable<Benevole> {
+    return from(this._benevoleModel.findByIdAndUpdate(username, benevole, { new: true }))
       .pipe(
         map((doc: MongooseDocument) => (!!doc) ? doc.toJSON() : undefined),
       );

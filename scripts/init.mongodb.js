@@ -6,7 +6,6 @@ db.getCollection('refuges').insertMany([
       "postalCode": NumberInt(54000),
       "city": "Nancy"
     },
-    "animalsIds": [],
     "phone": "+33145653290",
     "email": "refuge.nancy@fictive.com"
   },
@@ -17,7 +16,6 @@ db.getCollection('refuges').insertMany([
       "postalCode": NumberInt(54400),
       "city": "Longwy"
     },
-    "animalsIds": [],
     "phone": "+33123453290",
     "email": "refuge.longwy@fictive.com"
   }
@@ -84,8 +82,6 @@ data.forEach(function(element) {
   });
   if (!!refuges) {
     db.getCollection('animals').updateOne({_id: element._id}, { $set: { refugeId: refuges[0]._id } });
-    var Ids = refuges[0].animalsIds.concat(element._id);
-    db.getCollection('refuges').updateOne({_id: refuges[0]._id}, { $set: { animalsIds: Ids } });
   }
 });
 
@@ -98,6 +94,5 @@ user.forEach(function(element) {
   });
   if (!!refuges) {
     db.getCollection('benevoles').updateOne({_id: element._id}, { $set: { refugeId: refuges[0]._id } });
-    db.getCollection('refuges').updateOne({_id: refuges[0]._id}, { $set: { userId: element._id } });
   }
 });

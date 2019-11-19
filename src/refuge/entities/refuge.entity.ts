@@ -14,11 +14,6 @@ export class RefugeEntity {
   @Type(() => String)
   name: string;
 
-  @ApiModelProperty({ description: 'IDs of the animal in the refuge', example: '[123, 456, 789]'})
-  @Expose()
-  @Type(() => Array)
-  animalsIds: string[];
-
   @ApiModelProperty({ description: 'Email', example: 'MonRefuge@undefined.com' })
   @Expose()
   @Type(() => String)
@@ -33,11 +28,6 @@ export class RefugeEntity {
   @Expose()
   @Type(() => AddressEntity)
   address: AddressEntity;
-
-  @ApiModelProperty({ description: 'Unique identifier of the benevole', example: '123'})
-  @Expose()
-  @Type(() => String)
-  userId: string;
 
   constructor(partial: Partial<RefugeEntity>) {
     Object.assign(this, partial);

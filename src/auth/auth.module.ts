@@ -1,6 +1,5 @@
 import { Logger, Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { UsersModule } from '../users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './local.strategy';
 import { JwtModule } from '@nestjs/jwt';
@@ -12,7 +11,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { BenevoleSchema } from '../benevoles/schemas/benevole.schema';
 
 @Module({
-  imports: [UsersModule,
+  imports: [
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,

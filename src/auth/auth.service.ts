@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { User, UsersService } from '../users/users.service';
 import { Observable, of } from 'rxjs';
 import { defaultIfEmpty, filter, map, tap } from 'rxjs/operators';
 import { JwtService } from '@nestjs/jwt';
 import { BenevolesService } from '../benevoles/benevoles.service';
-import { Benevole } from '../benevoles/interfaces/benevole.interface';
 import { BenevoleEntity } from '../benevoles/entities/benevole.entity';
 
 @Injectable()

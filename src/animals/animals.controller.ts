@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Animal } from './interfaces/animal.interface';
 import { AnimalsService } from './animals.service';
 import {
-  ApiBadRequestResponse, ApiConflictResponse, ApiCreatedResponse,
+  ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiCreatedResponse,
   ApiImplicitParam,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -60,6 +60,7 @@ export class AnimalsController {
   @ApiConflictResponse({ description: 'already here' })
   @ApiBadRequestResponse({ description: ':(' })
   @ApiUnprocessableEntityResponse({ description: 'Request failed' })
+  @ApiBearerAuth()
   @Post()
   create(@Body() createAnimalDTO: CreateAnimalDto): Observable<AnimalEntity> {
     return this._animalService.create(createAnimalDTO);
@@ -70,6 +71,7 @@ export class AnimalsController {
   @ApiUnprocessableEntityResponse({ description: 'Failed' })
   @ApiBadRequestResponse({ description: 'bad parameters' })
   @ApiImplicitParam({name: 'id', description: 'ID of the animal', type: String})
+  @ApiBearerAuth()
   @Put(':id')
   update(@Param() params: HandlerParams, @Body() updateAnimalDTO: UpdateAnimalDto): Observable<AnimalEntity> {
     return this._animalService.update(params.id, updateAnimalDTO);
@@ -80,6 +82,7 @@ export class AnimalsController {
   @ApiUnprocessableEntityResponse({ description: 'Failed' })
   @ApiBadRequestResponse({ description: 'bad parameters' })
   @ApiImplicitParam({name: 'id', description: 'ID of the animal', type: String})
+  @ApiBearerAuth()
   @Delete(':id')
   delete(@Param() params: HandlerParams): Observable<void> {
     return this._animalService.delete(params.id);

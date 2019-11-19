@@ -7,6 +7,7 @@ import { AnimalEntity } from './entities/animal.entity';
 import { AnimalsDao } from './dao/animals.dao';
 import { CreateAnimalDto } from './dto/create-animal.dto';
 import { UpdateAnimalDto } from './dto/update-animal.dto';
+import { RefugesDao } from '../refuge/dao/refuges.dao';
 
 @Injectable()
 export class AnimalsService {
@@ -19,7 +20,7 @@ export class AnimalsService {
   findAllSpecies(): Observable<string[] | void> {
     return this.findAll()
       .pipe(
-        map((animals: AnimalEntity[]) => [... new Set(animals.map(animal => animal.species))]),
+        map((animals: AnimalEntity[]) => [... new Set(animals.map(animal => animal.species.toLowerCase()))]),
         flatMap(_ =>
           (!!_ && _.length > 0) ?
             of(_) :
@@ -100,3 +101,48 @@ export class AnimalsService {
       );
   }
 }
+
+/*
+
+
+  create(refuge: CreateRefugeDto): Observable<AnimalEntity> {
+    return this._animalsDao.create(refuge)
+      .pipe(
+        catchError(e =>
+          (e.code = 11000) ?
+            throwError(new ConflictException('already exist')) :
+            throwError(new UnprocessableEntityException('bdd failed')),
+        ),
+        map(_ => new AnimalEntity(_)),
+      );
+  }
+
+  update(id: string, refuge: UpdateRefugeDto): Observable<AnimalEntity> {
+    return this._animalsDao.update(id, refuge)
+      .pipe(
+        catchError(e =>
+          (e.code = 11000) ?
+            throwError(new ConflictException('already exist')) :
+            throwError(new UnprocessableEntityException('bdd failed')),
+        ),
+        flatMap(_ =>
+          (!!_) ?
+            of(new AnimalEntity(_)) :
+            throwError(new NotFoundException('pas trouvé')),
+        ),
+      )
+  }
+
+  delete(id: string): Observable<void> {
+    return this._animalsDao.delete(id)
+      .pipe(
+        catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
+        flatMap(_ =>
+          (!!_) ?
+            of(undefined) :
+            throwError(new NotFoundException('pas trouvé')),
+        )
+      );
+  }
+
+ */
