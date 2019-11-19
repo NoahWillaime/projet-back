@@ -11,15 +11,16 @@ export const BenevoleSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  refugeId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-  },
-  refugeName: {
+  firstname: {
     type: String,
     required: true,
     trim: true,
   },
+  lastname: {
+    type: String,
+    required: true,
+    trim: true,
+  }
 }, {
   toJSON: { virtuals: true },
   versionKey: false,

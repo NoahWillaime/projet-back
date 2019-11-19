@@ -5,4 +5,7 @@ export interface SwaggerConfig {
   tag: string;
   tagAnimals: string;
   path: string;
+  tagAuth: string;
+  tagBenevoles: string;
+  tagRefuge: string;
 }

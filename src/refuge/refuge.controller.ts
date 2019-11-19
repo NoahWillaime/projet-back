@@ -1,20 +1,23 @@
-import { ClassSerializerInterceptor, Controller, Get, Param, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Get, Param, Post, UseInterceptors } from '@nestjs/common';
 import {
-  ApiBadRequestResponse,
+  ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiCreatedResponse,
   ApiImplicitParam,
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiUnprocessableEntityResponse,
+  ApiUnprocessableEntityResponse, ApiUseTags,
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
-import { HandlerParams } from '../animals/validators/HandlerParams';
 import { RefugeEntity } from './entities/refuge.entity';
 import { RefugeService } from './refuge.service';
 import { RefugeInterceptor } from './interceptors/refuges.interceptor';
 import { HandlerParamsPostalCode } from './validators/HandlerParamsPostalCode';
 import { AnimalEntity } from '../animals/entities/animal.entity';
+import { CreateRefugeDto } from './dto/create-refuge.dto';
+import { HandlerParamsUserId } from './validators/HandlerParamsUserId';
+import { HandlerParams } from './validators/HandlerParams';
 
+@ApiUseTags('refuge')
 @UseInterceptors(ClassSerializerInterceptor)
 @UseInterceptors(RefugeInterceptor)
 @Controller('refuge')
@@ -46,6 +49,16 @@ export class RefugeController {
     return this._refugeService.findOne(params.id);
   }
 
+  @ApiOkResponse({ description: 'Return the refuge corresponding with the given id' })
+  @ApiNotFoundResponse( { description: 'No refuge with the given owner id' } )
+  @ApiUnprocessableEntityResponse({ description: 'Failed' })
+  @ApiBadRequestResponse({ description: 'bad parameters' })
+  @ApiImplicitParam({name: 'id', description: 'ID of the refuge owner', type: String})
+  @Get('user/:id')
+  findOneByUser(@Param() params: HandlerParams): Observable<RefugeEntity> {
+    return this._refugeService.findOneByUser(params.id);
+  }
+
   @ApiOkResponse({ description: 'Returns an array of animals', type: RefugeEntity})
   @ApiNoContentResponse( { description: 'No animal in this refuge in database '} )
   @ApiBadRequestResponse({ description: 'bad parameters' })
@@ -53,5 +66,16 @@ export class RefugeController {
   @Get('/:id/animals')
   findAnimals(@Param() params: HandlerParams): Observable<AnimalEntity[] | void> {
     return this._refugeService.findAnimals(params.id);
+  }
+
+  @ApiCreatedResponse({ description: 'success !'})
+  @ApiConflictResponse({ description: 'already here' })
+  @ApiBadRequestResponse({ description: ':(' })
+  @ApiUnprocessableEntityResponse({ description: 'Request failed' })
+  @ApiImplicitParam({name: 'userId', description: 'ID of the creator of the refuge', type: String})
+  @ApiBearerAuth()
+  @Post(':userId')
+  create(@Param() params: HandlerParamsUserId, @Body() createRefugeDto: CreateRefugeDto): Observable<RefugeEntity> {
+    return this._refugeService.create(params.userId, createRefugeDto);
   }
 }

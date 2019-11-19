@@ -29,6 +29,21 @@ export class RefugeEntity {
   @Type(() => AddressEntity)
   address: AddressEntity;
 
+  @ApiModelProperty({ description: 'Unique user identifier in the database', example: '123'})
+  @Expose()
+  @Type(() => String)
+  userId: string;
+
+  @ApiModelProperty({ description: 'User firstname', example: 'Jean'})
+  @Expose()
+  @Type(() => String)
+  userFirstname: string;
+
+  @ApiModelProperty({ description: 'User lastname', example: 'Marc'})
+  @Expose()
+  @Type(() => String)
+  userLastname: string;
+
   constructor(partial: Partial<RefugeEntity>) {
     Object.assign(this, partial);
   }

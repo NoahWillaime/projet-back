@@ -32,6 +32,17 @@ export const RefugeSchema = new mongoose.Schema({
       trim: true,
     },
   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
+  userFirstname: {
+    type: String,
+    trim: true,
+  },
+  userLastname: {
+    type: String,
+    trim: true,
+  },
 }, {
   toJSON: { virtuals: true },
   versionKey: false,

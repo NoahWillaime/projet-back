@@ -1,11 +1,10 @@
 import { Logger, Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { AnimalsModule } from './animals/animals.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BenevolesModule } from './benevoles/benevoles.module';
 import { RefugeModule } from './refuge/refuge.module';
+import { WelcomeModule } from './welcome/welcome.module';
 
 @Module({
   imports: [AuthModule,
@@ -15,8 +14,7 @@ import { RefugeModule } from './refuge/refuge.module';
       useFindAndModify: false}),
     BenevolesModule,
     RefugeModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService, Logger],
+    WelcomeModule,
+  ]
 })
 export class AppModule {}

@@ -8,7 +8,7 @@ import {
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiUnprocessableEntityResponse,
+  ApiUnprocessableEntityResponse, ApiUseTags,
 } from '@nestjs/swagger';
 import { HandlerParams } from './validators/HandlerParams';
 import { AnimalEntity } from './entities/animal.entity';
@@ -17,6 +17,7 @@ import { UpdateAnimalDto } from './dto/update-animal.dto';
 import { AnimalsInterceptor } from './interceptors/animals.interceptor';
 import { HandlerParemsSpecies } from './validators/HandlerParemsSpecies';
 
+@ApiUseTags('animals')
 @UseInterceptors(ClassSerializerInterceptor)
 @UseInterceptors(AnimalsInterceptor)
 @Controller('animals')

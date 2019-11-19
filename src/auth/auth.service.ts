@@ -10,7 +10,7 @@ export class AuthService {
   constructor(private readonly _benevolesService: BenevolesService, private readonly jwtService: JwtService) {}
 
   validUser(username: string, pass: string): Observable<BenevoleEntity | void> {
-    return this._benevolesService.findOne(username)
+    return this._benevolesService.findOneUsername(username)
       .pipe(
         filter(_ => !!_),
         map((user: BenevoleEntity) =>
@@ -22,9 +22,10 @@ export class AuthService {
   login(user: BenevoleEntity): Observable<any> {
     const payload = { username: user.username, sub: user.id};
     return of({
-      userId: user.id,
+      id: user.id,
       username: user.username,
-      refugeId: user.refugeId,
+      firstname: user.firstname,
+      lastname: user.lastname,
       access_token: this.jwtService.sign(payload)
     });
   }

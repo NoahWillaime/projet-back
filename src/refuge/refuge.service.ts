@@ -1,16 +1,22 @@
 import { ConflictException, Injectable, Logger, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, defaultIfEmpty, filter, flatMap, map } from 'rxjs/operators';
+import { catchError, defaultIfEmpty, filter, flatMap, map, tap } from 'rxjs/operators';
 import { RefugesDao } from './dao/refuges.dao';
 import { RefugeEntity } from './entities/refuge.entity';
 import { AnimalEntity } from '../animals/entities/animal.entity';
 import { AnimalsService } from '../animals/animals.service';
 import { CreateRefugeDto } from './dto/create-refuge.dto';
 import { UpdateRefugeDto } from './dto/update-refuge.dto';
+import { BenevolesService } from '../benevoles/benevoles.service';
+import { UpdateBenevoleDto } from '../benevoles/dto/update-benevole.dto';
+import { BenevoleEntity } from '../benevoles/entities/benevole.entity';
 
 @Injectable()
 export class RefugeService {
-  constructor(private readonly _refugeDao: RefugesDao, private readonly _animalsService: AnimalsService, private readonly _logger: Logger) {}
+  constructor(private readonly _refugeDao: RefugesDao,
+              private readonly _animalsService: AnimalsService,
+              private readonly _benevolesService: BenevolesService,
+              private readonly _logger: Logger) {}
 
   findAll(): Observable<RefugeEntity[] | void> {
     return this._refugeDao.find()
@@ -28,6 +34,18 @@ export class RefugeService {
           (!!_ && _.length > 0) ?
             of(_) :
             throwError(new NotFoundException('No animal with specified species here'))
+        ),
+      );
+  }
+
+  findOneByUser(id: string): Observable<RefugeEntity> {
+    return this._refugeDao.findOneByUser(id)
+      .pipe(
+        catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
+        flatMap(_ =>
+          (!!_) ?
+            of(new RefugeEntity(_)) :
+            throwError(new NotFoundException('not here')),
         ),
       );
   }
@@ -56,7 +74,7 @@ export class RefugeService {
       );
   }
 
-  create(refuge: CreateRefugeDto): Observable<RefugeEntity> {
+  create(userId: string, refuge: CreateRefugeDto): Observable<RefugeEntity> {
     return this._refugeDao.create(refuge)
       .pipe(
         catchError(e =>
@@ -64,7 +82,7 @@ export class RefugeService {
             throwError(new ConflictException('already exist')) :
             throwError(new UnprocessableEntityException('bdd failed')),
         ),
-        map(_ => new RefugeEntity(_)),
+        map(_ => new RefugeEntity(_))
       );
   }
 
