@@ -72,10 +72,9 @@ export class RefugeController {
   @ApiConflictResponse({ description: 'already here' })
   @ApiBadRequestResponse({ description: ':(' })
   @ApiUnprocessableEntityResponse({ description: 'Request failed' })
-  @ApiImplicitParam({name: 'userId', description: 'ID of the creator of the refuge', type: String})
   @ApiBearerAuth()
-  @Post(':userId')
-  create(@Param() params: HandlerParamsUserId, @Body() createRefugeDto: CreateRefugeDto): Observable<RefugeEntity> {
-    return this._refugeService.create(params.userId, createRefugeDto);
+  @Post()
+  create(@Body() createRefugeDto: CreateRefugeDto): Observable<RefugeEntity> {
+    return this._refugeService.create(createRefugeDto);
   }
 }

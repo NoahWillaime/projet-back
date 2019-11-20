@@ -74,7 +74,8 @@ export class RefugeService {
       );
   }
 
-  create(userId: string, refuge: CreateRefugeDto): Observable<RefugeEntity> {
+  create(refuge: CreateRefugeDto): Observable<RefugeEntity> {
+    this._logger.log(refuge, 'CREATE');
     return this._refugeDao.create(refuge)
       .pipe(
         catchError(e =>
