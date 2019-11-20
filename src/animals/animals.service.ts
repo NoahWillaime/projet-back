@@ -23,7 +23,7 @@ export class AnimalsService {
         flatMap(_ =>
           (!!_ && _.length > 0) ?
             of(_) :
-            throwError(new NotFoundException('No Speecies here'))
+            throwError(new NotFoundException('There is species in database'))
         ),
       );
   }
@@ -36,7 +36,7 @@ export class AnimalsService {
         flatMap(_ =>
           (!!_ && _.length > 0) ?
             of(_) :
-            throwError(new NotFoundException('No animal with specified species here'))
+            throwError(new NotFoundException('There is no animal with specified species'))
         ),
       );
   }
@@ -51,11 +51,11 @@ export class AnimalsService {
   findOne(id: string): Observable<AnimalEntity> {
     return this._animalsDao.findOne(id)
       .pipe(
-        catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
+        catchError(e => throwError(new UnprocessableEntityException('Request to database has failed'))),
         flatMap(_ =>
           (!!_) ?
             of(new AnimalEntity(_)) :
-            throwError(new NotFoundException('not here')),
+            throwError(new NotFoundException('There is no animal with the specified id')),
         ),
       );
   }
@@ -65,8 +65,8 @@ export class AnimalsService {
       .pipe(
         catchError(e =>
           (e.code = 11000) ?
-            throwError(new ConflictException('already exist')) :
-            throwError(new UnprocessableEntityException('bdd failed')),
+            throwError(new ConflictException('It already exist')) :
+            throwError(new UnprocessableEntityException('Request to database has failed')),
         ),
         map(_ => new AnimalEntity(_)),
       );
@@ -77,13 +77,13 @@ export class AnimalsService {
       .pipe(
         catchError(e =>
           (e.code = 11000) ?
-            throwError(new ConflictException('already exist')) :
-            throwError(new UnprocessableEntityException('bdd failed')),
+            throwError(new ConflictException('It already exist')) :
+            throwError(new UnprocessableEntityException('Request to database has failed')),
         ),
         flatMap(_ =>
           (!!_) ?
             of(new AnimalEntity(_)) :
-            throwError(new NotFoundException('pas trouvé')),
+            throwError(new NotFoundException('Not found')),
         ),
       )
   }
@@ -91,11 +91,11 @@ export class AnimalsService {
   delete(id: string): Observable<void> {
     return this._animalsDao.delete(id)
       .pipe(
-        catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
+        catchError(e => throwError(new UnprocessableEntityException('Request to database has failed'))),
         flatMap(_ =>
           (!!_) ?
             of(undefined) :
-            throwError(new NotFoundException('pas trouvé')),
+            throwError(new NotFoundException('Not found')),
         )
       );
   }

@@ -10,7 +10,7 @@ import { LocalStrategy } from './local.strategy';
 export class AuthController {
   constructor(private readonly auth: LocalStrategy) {}
 
-  @ApiOkResponse({ description: 'Ok' })
+  @ApiOkResponse({ description: 'Connexion réussi' })
   @ApiUnauthorizedResponse({ description: 'Identifiants invalides' })
   @Post('login')
   login(@Body() connectUser: ConnectUserDto): Observable<any> {
