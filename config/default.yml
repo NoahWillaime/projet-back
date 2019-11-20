@@ -12,7 +12,7 @@ swagger:
   tagRefuge: refuge
   path: documentation
 mongodb:
-  uri: mongodb://0.0.0.0:27017/projetdb
+  uri: mongodb://0.0.0.0:27017/adoptpetdb
   options:
     useNewUrlParser: true
     useUnifiedTopology: true
