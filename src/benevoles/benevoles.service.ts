@@ -1,8 +1,8 @@
-import { ConflictException, Injectable, Logger, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import { Benevole} from './interfaces/benevole.interface';
 import { BENEVOLES} from '../data/benevoles';
-import { from, Observable, of, throwError } from 'rxjs';
-import { catchError, find, flatMap, map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, flatMap, map } from 'rxjs/operators';
 import { BenevoleEntity } from './entities/benevole.entity';
 import { BenevolesDao } from './dao/benevoles.dao';
 import { CreateBenevoleDto } from './dto/create-benevole.dto';
@@ -12,7 +12,7 @@ import { UpdateBenevoleDto } from './dto/update-benevole.dto';
 export class BenevolesService {
   private _benevoles: Benevole[];
 
-  constructor(private readonly _benevolesDao: BenevolesDao, private _logger: Logger) {
+  constructor(private readonly _benevolesDao: BenevolesDao) {
     this._benevoles = [].concat(BENEVOLES);
   }
 

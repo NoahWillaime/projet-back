@@ -1,6 +1,6 @@
-import { ConflictException, Injectable, Logger, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, defaultIfEmpty, filter, flatMap, map, tap } from 'rxjs/operators';
+import { catchError, flatMap, map } from 'rxjs/operators';
 import { RefugesDao } from './dao/refuges.dao';
 import { RefugeEntity } from './entities/refuge.entity';
 import { AnimalEntity } from '../animals/entities/animal.entity';
@@ -8,15 +8,12 @@ import { AnimalsService } from '../animals/animals.service';
 import { CreateRefugeDto } from './dto/create-refuge.dto';
 import { UpdateRefugeDto } from './dto/update-refuge.dto';
 import { BenevolesService } from '../benevoles/benevoles.service';
-import { UpdateBenevoleDto } from '../benevoles/dto/update-benevole.dto';
-import { BenevoleEntity } from '../benevoles/entities/benevole.entity';
 
 @Injectable()
 export class RefugeService {
   constructor(private readonly _refugeDao: RefugesDao,
               private readonly _animalsService: AnimalsService,
-              private readonly _benevolesService: BenevolesService,
-              private readonly _logger: Logger) {}
+              private readonly _benevolesService: BenevolesService) {}
 
   findAll(): Observable<RefugeEntity[] | void> {
     return this._refugeDao.find()
@@ -75,7 +72,6 @@ export class RefugeService {
   }
 
   create(refuge: CreateRefugeDto): Observable<RefugeEntity> {
-    this._logger.log(refuge, 'CREATE');
     return this._refugeDao.create(refuge)
       .pipe(
         catchError(e =>
