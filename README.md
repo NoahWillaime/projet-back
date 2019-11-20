@@ -22,7 +22,7 @@ $ git clone https://github.com/NoahWillaime/projet-back
 -   Puis exécuter les commandes suivantes :
 ```bash
 $ yarn global add @nestjs/cli
-$ cd /projet-back
+$ cd projet-back/
 $ yarn install
 ```
 
