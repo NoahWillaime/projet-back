@@ -18,6 +18,7 @@ $ git clone https://github.com/NoahWillaime/projet-back
 
 -   Se connecter à MongoDB (Mongo Shell ou via Robot3T)
 -   Créer une nouvelle base de donnée "adoptpetdb" (Vous pouvez changer le nom dans le fichier config/default.yml)
+-   Vérifier également que le port indiqué correspond bien à votre port MongoDB
 -   Utiliser le script `init.mongodb.js` présent dans le dossier scripts/ pour générer les collections ainsi que des données exemples.
 -   Puis exécuter les commandes suivantes :
 ```bash
