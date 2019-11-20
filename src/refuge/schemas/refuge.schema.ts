@@ -33,7 +33,7 @@ export const RefugeSchema = new mongoose.Schema({
     },
   },
   userId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId
   },
   firstname: {
     type: String,
