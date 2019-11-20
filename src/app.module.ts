@@ -1,17 +1,16 @@
 import { Logger, Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { AnimalsModule } from './animals/animals.module';
-import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { BenevolesModule } from './benevoles/benevoles.module';
 import { RefugeModule } from './refuge/refuge.module';
 import { WelcomeModule } from './welcome/welcome.module';
+import * as Config from 'config';
 
 @Module({
   imports: [AuthModule,
     AnimalsModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/projetdb', {    useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false}),
+    MongooseModule.forRoot(Config.get<string>('mongodb.uri'), Config.get<MongooseModuleOptions>('mongodb.options')),
     BenevolesModule,
     RefugeModule,
     WelcomeModule,
