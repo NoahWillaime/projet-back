@@ -8,19 +8,19 @@ export class AnimalEntity {
   @Expose()
   @Type(() => String)
   id: string;
-  @ApiModelProperty({ description: 'Name', example: 'Felix'})
+  @ApiModelProperty({ description: 'Animal\'s name', example: 'Felix'})
   @Expose()
   @Type(() => String)
   name: string;
-  @ApiModelProperty({ description: 'Species', example: 'Feline'})
+  @ApiModelProperty({ description: 'Animal\'s species', example: 'cat'})
   @Expose()
   @Type(() => String)
   species: string;
-  @ApiModelProperty({ description: 'Breed', example: 'Cat'})
+  @ApiModelProperty({ description: 'Animal\'s breed', example: 'bengal'})
   @Expose()
   @Type(() => String)
   breed: string;
-  @ApiModelProperty({ description: 'Gender', example: 'Male'})
+  @ApiModelProperty({ description: 'Animal\'s gender', example: 'Male'})
   @Expose()
   @Type(() => String)
   gender: string
@@ -28,23 +28,23 @@ export class AnimalEntity {
   @Expose()
   @Type(() => String)
   photo: string;
-  @ApiModelProperty({ description: 'diet', example: 'meat'})
+  @ApiModelProperty({ description: 'Animal\'s diet', example: 'meat'})
   @Expose()
   @Type(() => String)
   diet: string;
-  @ApiModelProperty({ description: 'Health state', example: 'Healthy'})
+  @ApiModelProperty({ description: 'Animal\'s health state', example: 'Healthy'})
   @Expose()
   @Type(() => String)
   health: string;
-  @ApiModelProperty({ description: 'Description', example: 'Calm & Cute'})
+  @ApiModelProperty({ description: 'Animal\'s description', example: 'Calm & Cute'})
   @Expose()
   @Type(() => String)
   description: string;
-  @ApiModelProperty({ description: 'Arrived at ..', example: '2019/12/2'})
+  @ApiModelProperty({ description: 'Animal\'s arrival', example: '2019/12/2'})
   @Expose()
   @Type(() => Number)
   enterDate: number;
-  @ApiModelProperty({ description: 'Unique identifier in the database', example: '123'})
+  @ApiModelProperty({ description: 'Refuge\'s unique identifier in the database for the animal', example: '123'})
   @Expose()
   @Type(() => String)
   refugeId: string;

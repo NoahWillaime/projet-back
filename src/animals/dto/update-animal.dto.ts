@@ -2,7 +2,7 @@ import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-valida
 import { ApiModelProperty } from '@nestjs/swagger';
 
 export class UpdateAnimalDto {
-  @ApiModelProperty({ description: 'Name', example: 'Felix'})
+  @ApiModelProperty({ description: 'Animal\'s name', example: 'Felix'})
   @IsOptional()
   @IsString()
   @IsNotEmpty()
@@ -14,49 +14,49 @@ export class UpdateAnimalDto {
   @IsNotEmpty()
   photo?: string;
 
-  @ApiModelProperty({ description: 'Species', example: 'Feline'})
+  @ApiModelProperty({ description: 'Animal\'s species', example: 'cat'})
   @IsOptional()
   @IsString()
   @IsNotEmpty()
   species?: string;
 
-  @ApiModelProperty({ description: 'Breed', example: 'Cat'})
+  @ApiModelProperty({ description: 'Animal\'s breed', example: 'bengal'})
   @IsOptional()
   @IsString()
   @IsNotEmpty()
   breed?: string;
 
-  @ApiModelProperty({ description: 'Gender', example: 'Male'})
+  @ApiModelProperty({ description: 'Animal\'s gender', example: 'Male'})
   @IsOptional()
   @IsNotEmpty()
   @IsString()
   gender: string
 
-  @ApiModelProperty({ description: 'diet', example: 'meat'})
+  @ApiModelProperty({ description: 'Animal\'s diet', example: 'meat'})
   @IsOptional()
   @IsString()
   @IsNotEmpty()
   diet?: string;
 
-  @ApiModelProperty({ description: 'Health state', example: 'Healthy'})
+  @ApiModelProperty({ description: 'Animal\'s health state', example: 'Healthy'})
   @IsOptional()
   @IsString()
   @IsNotEmpty()
   health?: string;
 
-  @ApiModelProperty({ description: 'Description', example: 'Calm & Cute'})
+  @ApiModelProperty({ description: 'Animal\'s description', example: 'Calm & Cute'})
   @IsOptional()
   @IsString()
   @IsNotEmpty()
   description?: string;
 
-  @ApiModelProperty({ description: 'Arrived at ..', example: '2019/12/2'})
+  @ApiModelProperty({ description: 'Animal\'s arrival', example: '2019/12/2'})
   @IsOptional()
   @IsNumber()
   @IsNotEmpty()
   enterDate?: number;
 
-  @ApiModelProperty({ description: 'Unique identifier in the database', example: '123'})
+  @ApiModelProperty({ description: 'Refuge\'s unique identifier in the database for the animal', example: '123'})
   @IsOptional()
   @IsString()
   refugeId: string;

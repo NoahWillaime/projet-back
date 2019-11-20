@@ -3,7 +3,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
 import { Expose, Type } from 'class-transformer';
 
 export class CreateAnimalDto {
-  @ApiModelProperty({ description: 'Name', example: 'Felix'})
+  @ApiModelProperty({ description: 'Animal\'s name', example: 'Felix'})
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -12,41 +12,41 @@ export class CreateAnimalDto {
   @IsString()
   photo?: string;
 
-  @ApiModelProperty({ description: 'Species', example: 'Feline'})
+  @ApiModelProperty({ description: 'Animal\'s species', example: 'cat'})
   @IsNotEmpty()
   @IsString()
   species: string;
 
-  @ApiModelProperty({ description: 'Breed', example: 'Cat'})
+  @ApiModelProperty({ description: 'Animal\'s breed', example: 'bengal'})
   @IsNotEmpty()
   @IsString()
   breed: string;
 
-  @ApiModelProperty({ description: 'Gender', example: 'Male'})
+  @ApiModelProperty({ description: 'Animal\'s gender', example: 'Male'})
   @IsNotEmpty()
   @IsString()
   gender: string
 
-  @ApiModelProperty({ description: 'diet', example: 'meat'})
+  @ApiModelProperty({ description: 'Animal\'s diet', example: 'meat'})
   @IsNotEmpty()
   @IsString()
   diet: string;
 
-  @ApiModelProperty({ description: 'Health state', example: 'Healthy'})
+  @ApiModelProperty({ description: 'Animal\'s health state', example: 'Healthy'})
   @IsNotEmpty()
   @IsString()
   health: string;
 
-  @ApiModelProperty({ description: 'Description', example: 'Calm & Cute'})
+  @ApiModelProperty({ description: 'Animal\'s description', example: 'Calm & Cute'})
   @IsString()
   description?: string;
 
-  @ApiModelProperty({ description: 'Arrived at ..', example: '2019/12/2'})
+  @ApiModelProperty({ description: 'Animal\'s arrival', example: '2019/12/2'})
   @IsNotEmpty()
   @IsNumber()
   enterDate: number;
 
-  @ApiModelProperty({ description: 'Unique identifier in the database', example: '123'})
+  @ApiModelProperty({ description: 'Refuge\'s unique identifier in the database for the animal', example: '123'})
   @IsNotEmpty()
   @IsString()
   refugeId: string;
