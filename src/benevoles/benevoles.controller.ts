@@ -1,6 +1,6 @@
-import { Body, ClassSerializerInterceptor, Controller, Get, Logger, Param, Post, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Get, Param, Post, UseInterceptors } from '@nestjs/common';
 import {
-  ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiCreatedResponse,
+  ApiBadRequestResponse, ApiConflictResponse, ApiCreatedResponse,
   ApiImplicitParam,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -17,7 +17,7 @@ import { CreateBenevoleDto } from './dto/create-benevole.dto';
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('benevoles')
 export class BenevolesController {
-  constructor(private readonly _benevolesService: BenevolesService, private _logger: Logger) {
+  constructor(private readonly _benevolesService: BenevolesService) {
   }
 
   @ApiOkResponse({ description: 'Returns an array of benevoles', type: BenevoleEntity})

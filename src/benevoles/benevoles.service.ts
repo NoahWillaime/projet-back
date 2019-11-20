@@ -1,8 +1,8 @@
-import { ConflictException, Injectable, Logger, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import { Benevole} from './interfaces/benevole.interface';
 import { BENEVOLES} from '../data/benevoles';
-import { from, Observable, of, throwError } from 'rxjs';
-import { catchError, find, flatMap, map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, flatMap, map } from 'rxjs/operators';
 import { BenevoleEntity } from './entities/benevole.entity';
 import { BenevolesDao } from './dao/benevoles.dao';
 import { CreateBenevoleDto } from './dto/create-benevole.dto';
@@ -12,7 +12,7 @@ import { UpdateBenevoleDto } from './dto/update-benevole.dto';
 export class BenevolesService {
   private _benevoles: Benevole[];
 
-  constructor(private readonly _benevolesDao: BenevolesDao, private _logger: Logger) {
+  constructor(private readonly _benevolesDao: BenevolesDao) {
     this._benevoles = [].concat(BENEVOLES);
   }
 
@@ -26,11 +26,11 @@ export class BenevolesService {
   findOne(id: string): Observable<BenevoleEntity> {
     return this._benevolesDao.findOne(id)
       .pipe(
-        catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
+        catchError(e => throwError(new UnprocessableEntityException('Request to database has failed'))),
         flatMap(_ =>
           (!!_) ?
             of(new BenevoleEntity(_)) :
-            throwError(new NotFoundException('not here')),
+            throwError(new NotFoundException('There is no Benevole with the specified id')),
         ),
       );
   }
@@ -38,11 +38,11 @@ export class BenevolesService {
   findOneUsername(username: string): Observable<BenevoleEntity> {
     return this._benevolesDao.findOneUsername(username)
       .pipe(
-        catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
+        catchError(e => throwError(new UnprocessableEntityException('Request to database has failed'))),
         flatMap(_ =>
           (!!_) ?
             of(new BenevoleEntity(_)) :
-            throwError(new NotFoundException('not here')),
+            throwError(new NotFoundException('There is no Benevole with the specified username')),
         ),
       );
   }
@@ -52,8 +52,8 @@ export class BenevolesService {
       .pipe(
         catchError(e =>
           (e.code = 11000) ?
-            throwError(new ConflictException('already exist')) :
-            throwError(new UnprocessableEntityException('bdd failed')),
+            throwError(new ConflictException('It already exist')) :
+            throwError(new UnprocessableEntityException('Request to database has failed')),
         ),
         map(_ => new BenevoleEntity(_)),
       );
@@ -64,13 +64,13 @@ export class BenevolesService {
       .pipe(
         catchError(e =>
           (e.code = 11000) ?
-            throwError(new ConflictException('already exist')) :
-            throwError(new UnprocessableEntityException('bdd failed')),
+            throwError(new ConflictException('It already exist')) :
+            throwError(new UnprocessableEntityException('Request to database has failed')),
         ),
         flatMap(_ =>
           (!!_) ?
             of(new BenevoleEntity(_)) :
-            throwError(new NotFoundException('pas trouvé')),
+            throwError(new NotFoundException('There is no benevole with the specified id')),
         ),
       );
   }
@@ -78,11 +78,11 @@ export class BenevolesService {
   delete(id: string): Observable<void> {
     return this._benevolesDao.delete(id)
       .pipe(
-        catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
+        catchError(e => throwError(new UnprocessableEntityException('Request to database has failed'))),
         flatMap(_ =>
           (!!_) ?
             of(undefined) :
-            throwError(new NotFoundException('pas trouvé')),
+            throwError(new NotFoundException('There is no benevole with the specified id')),
         ),
       );
   }
