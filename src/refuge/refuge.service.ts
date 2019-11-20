@@ -29,7 +29,7 @@ export class RefugeService {
     return this.findAll()
       .pipe(
         map((refuges: RefugeEntity[]) =>
-          refuges.filter((refuges: RefugeEntity) => refuges.address.postalCode.toLowerCase() === postalcode.toLowerCase())),
+          refuges.filter((refuges: RefugeEntity) => refuges.address.postalCode.toString().substring(0,2) == postalcode.substr(0,2))),
         flatMap(_ =>
           (!!_ && _.length > 0) ?
             of(_) :

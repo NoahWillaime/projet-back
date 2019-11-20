@@ -37,12 +37,12 @@ export class RefugeEntity {
   @ApiModelProperty({ description: 'User firstname', example: 'Jean'})
   @Expose()
   @Type(() => String)
-  userFirstname: string;
+  firstname: string;
 
   @ApiModelProperty({ description: 'User lastname', example: 'Marc'})
   @Expose()
   @Type(() => String)
-  userLastname: string;
+  lastname: string;
 
   constructor(partial: Partial<RefugeEntity>) {
     Object.assign(this, partial);

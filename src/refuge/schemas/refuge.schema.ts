@@ -35,11 +35,11 @@ export const RefugeSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
   },
-  userFirstname: {
+  firstname: {
     type: String,
     trim: true,
   },
-  userLastname: {
+  lastname: {
     type: String,
     trim: true,
   },

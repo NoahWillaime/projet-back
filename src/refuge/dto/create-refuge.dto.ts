@@ -33,10 +33,10 @@ export class CreateRefugeDto {
   @ApiModelProperty({ description: 'User firstname', example: 'Jean'})
   @IsString()
   @IsNotEmpty()
-  userFirstname: string;
+  firstname: string;
 
   @ApiModelProperty({ description: 'User lastname', example: 'Marc'})
   @IsString()
   @IsNotEmpty()
-  userLastname: string;
+  lastname: string;
 }
