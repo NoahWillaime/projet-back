@@ -45,11 +45,11 @@ export class UpdateRefugeDto {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  userFirstname: string;
+  firstname: string;
 
   @ApiModelProperty({ description: 'User lastname', example: 'Marc'})
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  userLastname: string;
+   lastname: string;
 }

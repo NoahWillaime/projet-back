@@ -8,8 +8,8 @@ db.getCollection('refuges').insertMany([
     },
     "phone": "+33145653290",
     "email": "refuge.nancy@fictive.com",
-    "userFirstname": "Pierre",
-    "userLastname": "Henry",
+    "firstname": "Pierre",
+    "lastname": "Henry",
   },
   {
     "name": "Refuge de Longwy",
@@ -20,8 +20,8 @@ db.getCollection('refuges').insertMany([
     },
     "phone": "+33123453290",
     "email": "refuge.longwy@fictive.com",
-    "userFirstname": "Jean",
-    "userLastname": "Pierre",
+    "firstname": "Jean",
+    "lastname": "Pierre",
   }
 ]);
 
@@ -90,7 +90,7 @@ var data = db.getCollection('animals').find({}).map(function(element) {
 });
 data.forEach(function(element) {
   var refuges = db.getCollection('refuges').find({"name": element.refugeName}).map(function(elt) {
-    return { _id: elt._id, name: elt.name, animalsIds: elt.animalsIds };
+    return { _id: elt._id, name: elt.name };
   });
   if (!!refuges) {
     db.getCollection('animals').updateOne({_id: element._id}, { $set: { refugeId: refuges[0]._id } });
@@ -101,10 +101,11 @@ var user = db.getCollection('benevoles').find({}).map(function(element) {
   return { _id: element._id, firstname: element.firstname, lastname: element.lastname };
 });
 user.forEach(function(element) {
-  var refuges = db.getCollection('refuges').find({"userFirstname": element.firstname, "userLastname": element.lastname}).map(function(elt) {
+  var refuges = db.getCollection('refuges').find({"firstname": element.firstname, "lastname": element.lastname}).map(function(elt) {
     return { _id: elt._id, name: elt.name };
   });
   if (!!refuges) {
-    db.getCollection('refuges').updateOne({_id: refuges[0]._id}, { $set: { userId: element._id } });
+    db.getCollection('refuges').updateOne({_id: refuges[0]._id}, { $set: { userId: element._id, firstname: element.firstname, lastname: element.lastname } });
   }
 });
+
