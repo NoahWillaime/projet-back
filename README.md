@@ -8,9 +8,15 @@ Front-end : https://github.com/NoahWillaime/projet-front
 
 Ce projet nécessite l'installation de :
  - [NodeJS](https://nodejs.org/en/).
+ - [MongoDB](https://www.mongodb.com/fr)
+ - [Robot3T](https://robomongo.org/download) (Optionnel mais recommandé) 
 
 ## Mise en place
 
+-   Se connecter à MongoDB (Mongo Shell ou via Robot3T)
+-   Créer une nouvelle base de donnée "projetdb" (Vous pouvez changer le nom dans le fichier /config/default.yml)
+-   Utiliser le script `init.mongodb.js` présent dans le dossier /scripts pour générer les collections ainsi que des données exemples.
+-   Puis exécuter les commandes suivantes :
 ```bash
 $ git clone https://github.com/NoahWillaime/projet-back
 $ yarn global add @nestjs/cli

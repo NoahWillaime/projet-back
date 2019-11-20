@@ -2,7 +2,7 @@ import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsOptional, IsString } from 'c
 import { ApiModelProperty } from '@nestjs/swagger';
 
 export class CreateBenevoleDto {
-  @ApiModelProperty({ description: 'Unique identifier in the database', example: 'username'})
+  @ApiModelProperty({ description: 'Username', example: 'user'})
   @IsString()
   @IsNotEmpty()
   username: string;
@@ -12,7 +12,7 @@ export class CreateBenevoleDto {
   @IsNotEmpty()
   password: string;
 
-  @ApiModelProperty({ description: 'Firstname of the benevole' })
+  @ApiModelProperty({ description: 'Firstname of the benevole', example: 'shin'})
   @IsString()
   @IsNotEmpty()
   firstname: string;

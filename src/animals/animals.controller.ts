@@ -32,7 +32,7 @@ export class AnimalsController {
     return this._animalService.findAllSpecies();
   }
 
-  @ApiOkResponse({ description: 'Return an array oof animal filtered by specified species', type: AnimalEntity})
+  @ApiOkResponse({ description: 'Return an array of animal filtered by specified species', type: AnimalEntity})
   @ApiNoContentResponse({ description: 'No animal with specified species' })
   @ApiImplicitParam({name: 'species', description: 'Species of the animals', type: String})
   @Get('/species/:species')
@@ -49,18 +49,18 @@ export class AnimalsController {
   
   @ApiOkResponse({ description: 'Return the animal corresponding with the given id' })
   @ApiNotFoundResponse( { description: 'No animal with the given id' } )
-  @ApiUnprocessableEntityResponse({ description: 'Failed' })
-  @ApiBadRequestResponse({ description: 'bad parameters' })
+  @ApiUnprocessableEntityResponse({ description: 'Request to database has failed' })
+  @ApiBadRequestResponse({ description: 'Wrong given parameters' })
   @ApiImplicitParam({name: 'id', description: 'ID of the animal', type: String})
   @Get(':id')
   findOne(@Param() params: HandlerParams): Observable<AnimalEntity> {
     return this._animalService.findOne(params.id);
   }
 
-  @ApiCreatedResponse({ description: 'success !'})
-  @ApiConflictResponse({ description: 'already here' })
-  @ApiBadRequestResponse({ description: ':(' })
-  @ApiUnprocessableEntityResponse({ description: 'Request failed' })
+  @ApiCreatedResponse({ description: 'Animal successfully created !'})
+  @ApiConflictResponse({ description: 'Animal already exist' })
+  @ApiBadRequestResponse({ description: 'Wrong given parameters' })
+  @ApiUnprocessableEntityResponse({ description: 'Request to database has failed' })
   @ApiBearerAuth()
   @Post()
   create(@Body() createAnimalDTO: CreateAnimalDto): Observable<AnimalEntity> {
@@ -69,8 +69,8 @@ export class AnimalsController {
 
   @ApiOkResponse({ description: 'Return the animal updated' })
   @ApiNotFoundResponse( { description: 'No animal with the given id' } )
-  @ApiUnprocessableEntityResponse({ description: 'Failed' })
-  @ApiBadRequestResponse({ description: 'bad parameters' })
+  @ApiUnprocessableEntityResponse({ description: 'Request to database has failed' })
+  @ApiBadRequestResponse({ description: 'Wrong given parameters' })
   @ApiImplicitParam({name: 'id', description: 'ID of the animal', type: String})
   @ApiBearerAuth()
   @Put(':id')
@@ -78,10 +78,10 @@ export class AnimalsController {
     return this._animalService.update(params.id, updateAnimalDTO);
   }
 
-  @ApiNoContentResponse({ description: 'Delete OK' })
+  @ApiNoContentResponse({ description: 'Animal successfully deleted' })
   @ApiNotFoundResponse( { description: 'No animal with the given id' } )
-  @ApiUnprocessableEntityResponse({ description: 'Failed' })
-  @ApiBadRequestResponse({ description: 'bad parameters' })
+  @ApiUnprocessableEntityResponse({ description: 'Request to database has failed' })
+  @ApiBadRequestResponse({ description: 'Wrong given parameters' })
   @ApiImplicitParam({name: 'id', description: 'ID of the animal', type: String})
   @ApiBearerAuth()
   @Delete(':id')
