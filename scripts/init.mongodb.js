@@ -22,6 +22,18 @@ db.getCollection('refuges').insertMany([
     "email": "refuge.longwy@fictive.com",
     "firstname": "Jean",
     "lastname": "Pierre",
+  },
+  {
+    "name": "Refuge de Montpellier",
+    "address": {
+      "street": "rue Leclerc",
+      "postalCode": NumberInt(34000),
+      "city": "Montpellier"
+    },
+    "phone": "+33123453290",
+    "email": "refuge.montpellier@fictive.com",
+    "firstname": "Alexandre",
+    "lastname": "Labbe",
   }
 ]);
 
@@ -38,44 +50,50 @@ db.getCollection('benevoles').insertMany([
     "firstname": "Jean",
     "lastname": "Pierre",
   },
+  {
+    "username": "alexuser",
+    "password": "alexpassword",
+    "firstname": "Alexandre",
+    "lastname": "Labbe",
+  },
 ]);
 
 db.getCollection('animals').insertMany([
   {
     "name": "Myke",
     "photo": "https://www.pets4homes.co.uk/images/classifieds/2018/12/05/2149499/large/beautiful-kc-registered-golden-lab-for-sale-5c082ec2b5b7b.jpg",
-    "species": "Dog",
-    "breed": "idk",
+    "species": "Chien",
+    "breed": "non connue",
     "gender": "Male",
-    "diet": "Meat and letuce",
-    "health": "Good Health",
-    "description": "a bit loud",
+    "diet": "Croquettes et poissons",
+    "health": "En bonne santé",
+    "description": "Très calme et docile",
     "enterDate": ISODate("2018-01-01T23:00:00.000Z"),
     "refugeName": "Refuge de Nancy"
   },
   {
     "name": "Catty",
     "photo": "https://www.thisiscolossal.com/wp-content/uploads/2019/08/cat-hat-8.jpg",
-    "species": "Cat",
+    "species": "Chat",
     "breed": "Persian",
     "gender": "Male",
-    "diet": "Mise",
-    "health": "Not so good Health",
-    "description": "Very calm",
-    "enterDate": ISODate("2008-01-01T23:00:00.000Z"),
-    "refugeName": "Refuge de Nancy"
+    "diet": "Croquettes et souris",
+    "health": "Ok",
+    "description": "Peu être assez bruyante",
+    "enterDate": ISODate("2019-10-01T23:00:00.000Z"),
+    "refugeName": "Refuge de Longwy"
   },
   {
-    "name": "jack",
+    "name": "Jack",
     "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQeux5ZErmaNVpISV1_Uz0b_-OMMADLRC9q-Sg8SWu6OTDynZ_u",
-    "species": "Sparrow",
-    "breed": "pirate",
+    "species": "Perroquet",
+    "breed": "Inconnue",
     "gender": "Female",
-    "diet": "salted tears",
-    "health": "Probably dead now",
-    "description": "IDK",
+    "diet": "Un peu de tout",
+    "health": "Assez vieux",
+    "description": "Tiens en longévité",
     "enterDate": ISODate("1974-01-01T23:00:00.000Z"),
-    "refugeName": "Refuge de Longwy"
+    "refugeName": "Refuge de Montpellier"
   }
 ]);
 

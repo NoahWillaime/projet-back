@@ -40,9 +40,9 @@ export class RefugeController {
   }
 
   @ApiOkResponse({ description: 'Return the refuge corresponding with the given id' })
-  @ApiNotFoundResponse( { description: 'No refuge with the given id' } )
-  @ApiUnprocessableEntityResponse({ description: 'Failed' })
-  @ApiBadRequestResponse({ description: 'bad parameters' })
+  @ApiNotFoundResponse( { description: 'No refuge with the specified id' } )
+  @ApiUnprocessableEntityResponse({ description: 'Request to database has failed' })
+  @ApiBadRequestResponse({ description: 'Bad parameters' })
   @ApiImplicitParam({name: 'id', description: 'ID of the refuge', type: String})
   @Get(':id')
   findOne(@Param() params: HandlerParams): Observable<RefugeEntity> {
@@ -51,8 +51,8 @@ export class RefugeController {
 
   @ApiOkResponse({ description: 'Return the refuge corresponding with the given id' })
   @ApiNotFoundResponse( { description: 'No refuge with the given owner id' } )
-  @ApiUnprocessableEntityResponse({ description: 'Failed' })
-  @ApiBadRequestResponse({ description: 'bad parameters' })
+  @ApiUnprocessableEntityResponse({ description: 'Request to database has failed' })
+  @ApiBadRequestResponse({ description: 'Bad parameters' })
   @ApiImplicitParam({name: 'id', description: 'ID of the refuge owner', type: String})
   @Get('user/:id')
   findOneByUser(@Param() params: HandlerParams): Observable<RefugeEntity> {
@@ -60,18 +60,18 @@ export class RefugeController {
   }
 
   @ApiOkResponse({ description: 'Returns an array of animals', type: RefugeEntity})
-  @ApiNoContentResponse( { description: 'No animal in this refuge in database '} )
-  @ApiBadRequestResponse({ description: 'bad parameters' })
+  @ApiNoContentResponse( { description: 'No animal for this refuge in database'} )
+  @ApiBadRequestResponse({ description: 'Bad parameters' })
   @ApiImplicitParam({name: 'id', description: 'ID of the refuge', type: String})
   @Get('/:id/animals')
   findAnimals(@Param() params: HandlerParams): Observable<AnimalEntity[] | void> {
     return this._refugeService.findAnimals(params.id);
   }
 
-  @ApiCreatedResponse({ description: 'success !'})
-  @ApiConflictResponse({ description: 'already here' })
-  @ApiBadRequestResponse({ description: ':(' })
-  @ApiUnprocessableEntityResponse({ description: 'Request failed' })
+  @ApiCreatedResponse({ description: 'Refuge successfully created'})
+  @ApiConflictResponse({ description: 'Refuge already exists' })
+  @ApiBadRequestResponse({ description: 'Bad parameters' })
+  @ApiUnprocessableEntityResponse({ description: 'Request to database has failed' })
   @ApiBearerAuth()
   @Post()
   create(@Body() createRefugeDto: CreateRefugeDto): Observable<RefugeEntity> {

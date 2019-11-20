@@ -30,7 +30,7 @@ export class RefugeService {
         flatMap(_ =>
           (!!_ && _.length > 0) ?
             of(_) :
-            throwError(new NotFoundException('No animal with specified species here'))
+            throwError(new NotFoundException('There is no Refuge with specified postalcode'))
         ),
       );
   }
@@ -38,11 +38,11 @@ export class RefugeService {
   findOneByUser(id: string): Observable<RefugeEntity> {
     return this._refugeDao.findOneByUser(id)
       .pipe(
-        catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
+        catchError(e => throwError(new UnprocessableEntityException('Request to database has failed'))),
         flatMap(_ =>
           (!!_) ?
             of(new RefugeEntity(_)) :
-            throwError(new NotFoundException('not here')),
+            throwError(new NotFoundException('There is no Refuge with specified userid')),
         ),
       );
   }
@@ -50,11 +50,11 @@ export class RefugeService {
   findOne(id: string): Observable<RefugeEntity> {
     return this._refugeDao.findOne(id)
       .pipe(
-        catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
+        catchError(e => throwError(new UnprocessableEntityException('Request to database has failed'))),
         flatMap(_ =>
           (!!_) ?
             of(new RefugeEntity(_)) :
-            throwError(new NotFoundException('not here')),
+            throwError(new NotFoundException('There is no Refuge with the specified id')),
         ),
       );
   }
@@ -66,7 +66,7 @@ export class RefugeService {
         flatMap(_ =>
           (!!_ && _.length > 0) ?
             of(_) :
-            throwError(new NotFoundException('No animal with specified species here'))
+            throwError(new NotFoundException('There is no animal with the specified species'))
         ),
       );
   }
@@ -76,8 +76,8 @@ export class RefugeService {
       .pipe(
         catchError(e =>
           (e.code = 11000) ?
-            throwError(new ConflictException('already exist')) :
-            throwError(new UnprocessableEntityException('bdd failed')),
+            throwError(new ConflictException('Refuge already in database')) :
+            throwError(new UnprocessableEntityException('Request to database has failed')),
         ),
         map(_ => new RefugeEntity(_))
       );
@@ -88,13 +88,13 @@ export class RefugeService {
       .pipe(
         catchError(e =>
           (e.code = 11000) ?
-            throwError(new ConflictException('already exist')) :
-            throwError(new UnprocessableEntityException('bdd failed')),
+            throwError(new ConflictException('Refuge already in database')) :
+            throwError(new UnprocessableEntityException('Request to database has failed')),
         ),
         flatMap(_ =>
           (!!_) ?
             of(new RefugeEntity(_)) :
-            throwError(new NotFoundException('pas trouvé')),
+            throwError(new NotFoundException('There is no refuge with the specified id')),
         ),
       )
   }
@@ -102,11 +102,11 @@ export class RefugeService {
   delete(id: string): Observable<void> {
     return this._refugeDao.delete(id)
       .pipe(
-        catchError(e => throwError(new UnprocessableEntityException('bdd failed'))),
+        catchError(e => throwError(new UnprocessableEntityException('Request to database has failed'))),
         flatMap(_ =>
           (!!_) ?
             of(undefined) :
-            throwError(new NotFoundException('pas trouvé')),
+            throwError(new NotFoundException('There is no refuge with the specified id')),
         )
       );
   }
